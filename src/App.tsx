@@ -2,11 +2,19 @@ import { ChangeEvent, useState } from "react";
 
 export default function App() {
   const [billValue, setBillValue] = useState<number>(0);
+  const [yourSatisfaction, setYourSatisfaction] = useState("");
+  const [friendSatisfaction, setFriendSatisfaction] = useState("");
 
   const handleBillValue = (e: ChangeEvent<HTMLInputElement>) => {
     const billAmount = parseInt(e.target.value);
     console.log(billAmount);
     setBillValue(billAmount);
+  };
+
+  const handleYourSatisfaction = (e: ChangeEvent<HTMLSelectElement>) => {
+    const yourSatisfaction = e.target.value;
+    console.log(yourSatisfaction);
+    setYourSatisfaction(yourSatisfaction);
   };
 
   return (
@@ -24,7 +32,12 @@ export default function App() {
         </div>
         <div className="you">
           <p>How did you like the service?</p>
-          <select name="" id="">
+          <select
+            name=""
+            id=""
+            value={yourSatisfaction}
+            onChange={(e) => handleYourSatisfaction(e)}
+          >
             <option value="dissatisfied">Dissatisfied(0%)</option>
             <option value="okay">It was okay(5%)</option>
             <option value="good">It was good(10%)</option>
