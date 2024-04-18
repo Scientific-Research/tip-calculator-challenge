@@ -36,8 +36,9 @@ const TipCalculator = () => {
       </SelectPercentage>
       <Output billValue={billValue} tip={tip} />
       <Reset
-        onSetBillValue={setBillValue}
-        onSatisfactionPercentage={setFriendSatisfaction}
+        setBillValue={setBillValue}
+        setYourSatisfaction={setYourSatisfaction}
+        setFriendSatisfaction={setFriendSatisfaction}
       />
     </>
   );
@@ -103,16 +104,19 @@ const Output = ({ billValue, tip }: { billValue: any; tip: any }) => {
 };
 
 const Reset = ({
-  onSetBillValue,
-  onSatisfactionPercentage,
+  setBillValue,
+  setYourSatisfaction,
+  setFriendSatisfaction,
 }: {
-  onSetBillValue: any;
-  onSatisfactionPercentage: any;
+  setBillValue: any;
+  setYourSatisfaction: any;
+  setFriendSatisfaction: any;
 }) => {
   // Reset the values
   const handleReset = () => {
-    onSetBillValue(() => 0);
-    onSatisfactionPercentage(() => "");
+    setBillValue(() => 0);
+    setYourSatisfaction(() => 0);
+    setFriendSatisfaction(() => 0);
   };
 
   return <button onClick={handleReset}>Reset</button>;
