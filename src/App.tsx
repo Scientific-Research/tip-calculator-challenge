@@ -10,14 +10,15 @@ export default function App() {
   );
 }
 const TipCalculator = () => {
-  const [billValue, setBillValue] = useState<number>(0);
+  const [billValue, setBillValue] = useState("");
   // const [yourSatisfaction, setYourSatisfaction] = useState("dissatisfied");
   const [yourSatisfaction, setYourSatisfaction] = useState(0);
   // const [friendSatisfaction, setFriendSatisfaction] = useState("dissatisfied");
   const [friendSatisfaction, setFriendSatisfaction] = useState(0);
 
   // NOTE: every time when we set a new value in the input fields, this value will be set in the state variables and therefore, the new values will be calculated! In my calculations, i used the name of every selection like "It was good" and not its value => 10%, that's why i had to use switch-case and get the corresponding value for every selection. But now, we use the corresponding value for every selection directly using state variable!
-  const tip = billValue * ((yourSatisfaction + friendSatisfaction) / 2 / 100);
+  const tip =
+    Number(billValue) * ((yourSatisfaction + friendSatisfaction) / 2 / 100);
 
   return (
     <>
@@ -36,6 +37,7 @@ const TipCalculator = () => {
       </SelectPercentage>
       <Output billValue={billValue} tip={tip} />
       <Reset
+        billValue={billValue}
         setBillValue={setBillValue}
         setYourSatisfaction={setYourSatisfaction}
         setFriendSatisfaction={setFriendSatisfaction}
@@ -97,17 +99,21 @@ const SelectPercentage = ({
 
 const Output = ({ billValue, tip }: { billValue: any; tip: any }) => {
   return (
-    <h3>
-      You pay ${billValue + tip} (${billValue} + ${tip} tip)
-    </h3>
+    billValue && (
+      <h3>
+        You pay ${billValue + tip} (${billValue} + ${tip} tip)
+      </h3>
+    )
   );
 };
 
 const Reset = ({
+  billValue,
   setBillValue,
   setYourSatisfaction,
   setFriendSatisfaction,
 }: {
+  billValue: any;
   setBillValue: any;
   setYourSatisfaction: any;
   setFriendSatisfaction: any;
@@ -119,5 +125,5 @@ const Reset = ({
     setFriendSatisfaction(() => 0);
   };
 
-  return <button onClick={handleReset}>Reset</button>;
+  return billValue && <button onClick={handleReset}>Reset</button>;
 };
