@@ -17,10 +17,10 @@ const TipCalculator = () => {
   const [friendSatisfaction, setFriendSatisfaction] = useState(0);
 
   // NOTE: every time when we set a new value in the input fields, this value will be set in the state variables and therefore, the new values will be calculated! In my calculations, i used the name of every selection like "It was good" and not its value => 10%, that's why i had to use switch-case and get the corresponding value for every selection. But now, we use the corresponding value for every selection directly using state variable!
-  const tip = (
-    Number(billValue) *
-    ((yourSatisfaction + friendSatisfaction) / 2 / 100)
-  ).toFixed(2);
+  let tip =
+    Number(billValue) * ((yourSatisfaction + friendSatisfaction) / 2 / 100);
+
+  tip = Number(tip.toFixed(2));
 
   return (
     <>
@@ -122,9 +122,9 @@ const Reset = ({
 }) => {
   // Reset the values
   const handleReset = () => {
-    setBillValue(() => 0);
-    setYourSatisfaction(() => 0);
-    setFriendSatisfaction(() => 0);
+    setBillValue("");
+    setYourSatisfaction(0);
+    setFriendSatisfaction(0);
   };
 
   return billValue && <button onClick={handleReset}>Reset</button>;
