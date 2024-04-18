@@ -17,6 +17,12 @@ export default function App() {
     setYourSatisfaction(yourSatisfaction);
   };
 
+  const handleFriendSatisfaction = (e: ChangeEvent<HTMLSelectElement>) => {
+    const friendSatisfaction = e.target.value;
+    console.log(friendSatisfaction);
+    setFriendSatisfaction(friendSatisfaction);
+  };
+
   return (
     <>
       <div className="App">
@@ -46,7 +52,12 @@ export default function App() {
         </div>
         <div className="yourfriend">
           <p>How did your friend like the service?</p>
-          <select name="" id="">
+          <select
+            name=""
+            id=""
+            value={friendSatisfaction}
+            onChange={(e) => handleFriendSatisfaction(e)}
+          >
             <option value="dissatisfied">Dissatisfied(0%)</option>
             <option value="okay">It was okay(5%)</option>
             <option value="good">It was good(10%)</option>
