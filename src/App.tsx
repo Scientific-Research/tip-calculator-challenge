@@ -65,7 +65,10 @@ export default function App() {
   calculatedYourSatisfaction = handleYourSatisfaction();
   calculatedFriendSatisfaction = handleFriendSatisfaction();
 
-  averageTip = (calculatedYourSatisfaction + calculatedFriendSatisfaction) / 2;
+  averageTip = Number((
+    (calculatedYourSatisfaction + calculatedFriendSatisfaction) /
+    2
+  ).toFixed(2));
   totalAmount = billValue + averageTip;
 
   // Reset the values
