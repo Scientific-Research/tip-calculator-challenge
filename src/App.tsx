@@ -2,25 +2,31 @@ import { ChangeEvent, useState } from "react";
 
 export default function App() {
   const [billValue, setBillValue] = useState<number>(0);
-  const [yourSatisfaction, setYourSatisfaction] = useState("");
-  const [friendSatisfaction, setFriendSatisfaction] = useState("");
+  const [yourSatisfaction, setYourSatisfaction] = useState("dissatisfied");
+  const [friendSatisfaction, setFriendSatisfaction] = useState("dissatisfied");
 
   const handleBillValue = (e: ChangeEvent<HTMLInputElement>) => {
     const billAmount = parseInt(e.target.value);
     console.log(billAmount);
-    setBillValue(billAmount);
+    setBillValue(() => billAmount);
   };
 
   const handleYourSatisfaction = (e: ChangeEvent<HTMLSelectElement>) => {
     const yourSatisfaction = e.target.value;
     console.log(yourSatisfaction);
-    setYourSatisfaction(yourSatisfaction);
+    setYourSatisfaction(() => yourSatisfaction);
   };
 
   const handleFriendSatisfaction = (e: ChangeEvent<HTMLSelectElement>) => {
     const friendSatisfaction = e.target.value;
     console.log(friendSatisfaction);
-    setFriendSatisfaction(friendSatisfaction);
+    setFriendSatisfaction(() => friendSatisfaction);
+  };
+
+  const handleReset = () => {
+    setBillValue(() => 0);
+    setYourSatisfaction(() => "");
+    setFriendSatisfaction(() => "");
   };
 
   return (
@@ -65,7 +71,7 @@ export default function App() {
           </select>
         </div>
         {/* <p>{`You pay ${totalAmount} ($${bill} + $${averageTip} tip )`}</p> */}
-        <button>Reset</button>
+        <button onClick={handleReset}>Reset</button>
       </div>
     </>
   );
