@@ -1,28 +1,74 @@
 import { ChangeEvent, useState } from "react";
 
 export default function App() {
+  let yourSatisfactionResult = 0;
+  let friendSatisfactionResult = 0;
+  let calculatedYourSatisfaction = 0;
+  let calculatedFriendSatisfaction = 0;
+  let totalAmount = 0;
+  let averageTip = 0;
+
   const [billValue, setBillValue] = useState<number>(0);
   const [yourSatisfaction, setYourSatisfaction] = useState("dissatisfied");
   const [friendSatisfaction, setFriendSatisfaction] = useState("dissatisfied");
 
   const handleBillValue = (e: ChangeEvent<HTMLInputElement>) => {
     const billAmount = parseInt(e.target.value);
-    console.log(billAmount);
     setBillValue(() => billAmount);
   };
 
-  const handleYourSatisfaction = (e: ChangeEvent<HTMLSelectElement>) => {
-    const yourSatisfaction = e.target.value;
-    console.log(yourSatisfaction);
-    setYourSatisfaction(() => yourSatisfaction);
+  // const handleYourSatisfaction = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleYourSatisfaction = () => {
+    // const yourSatisfaction = e.target.value;
+    // setYourSatisfaction(() => yourSatisfaction);
+
+    switch (yourSatisfaction) {
+      case "dissatisfied":
+        yourSatisfactionResult = 0 * billValue;
+        break;
+      case "okay":
+        yourSatisfactionResult = 0.05 * billValue;
+        break;
+      case "good":
+        yourSatisfactionResult = 0.1 * billValue;
+        break;
+      case "amazing":
+        yourSatisfactionResult = 0.2 * billValue;
+        break;
+    }
+    return yourSatisfactionResult;
   };
 
-  const handleFriendSatisfaction = (e: ChangeEvent<HTMLSelectElement>) => {
-    const friendSatisfaction = e.target.value;
-    console.log(friendSatisfaction);
-    setFriendSatisfaction(() => friendSatisfaction);
+  // const handleFriendSatisfaction = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleFriendSatisfaction = () => {
+    // const friendSatisfaction = e.target.value;
+    // setFriendSatisfaction(() => friendSatisfaction);
+
+    switch (friendSatisfaction) {
+      case "dissatisfied":
+        friendSatisfactionResult = 0 * billValue;
+        break;
+      case "okay":
+        friendSatisfactionResult = 0.05 * billValue;
+        break;
+      case "good":
+        friendSatisfactionResult = 0.1 * billValue;
+        break;
+      case "amazing":
+        friendSatisfactionResult = 0.2 * billValue;
+        break;
+    }
+    return friendSatisfactionResult;
   };
 
+  // call the both functions
+  calculatedYourSatisfaction = handleYourSatisfaction();
+  calculatedFriendSatisfaction = handleFriendSatisfaction();
+
+  averageTip = (calculatedYourSatisfaction + calculatedFriendSatisfaction) / 2;
+  totalAmount = billValue + averageTip;
+
+  // Reset the values
   const handleReset = () => {
     setBillValue(() => 0);
     setYourSatisfaction(() => "");
@@ -48,7 +94,8 @@ export default function App() {
             name=""
             id=""
             value={yourSatisfaction}
-            onChange={(e) => handleYourSatisfaction(e)}
+            // onChange={(e) => handleYourSatisfaction(e)}
+            onChange={(e) => setYourSatisfaction(e.target.value)}
           >
             <option value="dissatisfied">Dissatisfied(0%)</option>
             <option value="okay">It was okay(5%)</option>
@@ -62,7 +109,8 @@ export default function App() {
             name=""
             id=""
             value={friendSatisfaction}
-            onChange={(e) => handleFriendSatisfaction(e)}
+            // onChange={(e) => handleFriendSatisfaction(e)}
+            onChange={(e) => setFriendSatisfaction(e.target.value)}
           >
             <option value="dissatisfied">Dissatisfied(0%)</option>
             <option value="okay">It was okay(5%)</option>
@@ -70,7 +118,7 @@ export default function App() {
             <option value="amazing">Absolutely amazing!(20%)</option>
           </select>
         </div>
-        {/* <p>{`You pay ${totalAmount} ($${bill} + $${averageTip} tip )`}</p> */}
+        <p>{`You pay $${totalAmount} ($${billValue} + $${averageTip} tip )`}</p>
         <button onClick={handleReset}>Reset</button>
       </div>
     </>
