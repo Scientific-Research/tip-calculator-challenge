@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 2.4rem;
+  font-family: sans-serif;
+  color: #ffffff;
+  background-color: #5a3e2b;
+  font-weight: 500;
+}
+
+.App {
+  padding: 2rem;
+}
+
+.you,
+.yourfriend {
+  display: flex;
+  /* padding: 2rem 0; */
+  margin: 2rem 0;
+}
+button {
+  margin-top: 3rem;
+  width: 5rem;
+  height: 2.5rem;
+}
+
+/* .yourfriend {
+  display: flex;
+  padding: 2rem 0;
+} */
