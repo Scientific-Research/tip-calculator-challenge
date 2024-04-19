@@ -9,6 +9,7 @@ export default function App() {
     </>
   );
 }
+
 const TipCalculator = () => {
   const [billValue, setBillValue] = useState<string | number>("");
   const [yourSatisfaction, setYourSatisfaction] = useState(0);
@@ -18,8 +19,9 @@ const TipCalculator = () => {
   let tip =
     Number(billValue) * ((yourSatisfaction + friendSatisfaction) / 2 / 100);
 
-  tip = Number(tip.toFixed(2));
+  tip = Number(tip.toFixed(2)); // to fix the output to two digits!
 
+  // NOTE: we have four components here and one of them => SelectPercentage is a reusable component!
   return (
     <>
       <BillInput billValue={billValue} onSetBillValue={setBillValue} />
@@ -59,7 +61,7 @@ const BillInput = ({
         <label htmlFor="">How much was the bill?</label>
         <input
           type="number"
-          placeholder="Bill value ..."
+          placeholder="Bill value"
           value={billValue}
           onChange={(e) => onSetBillValue(Number(e.target.value))}
         />
