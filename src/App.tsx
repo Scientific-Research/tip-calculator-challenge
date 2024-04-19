@@ -10,10 +10,8 @@ export default function App() {
   );
 }
 const TipCalculator = () => {
-  const [billValue, setBillValue] = useState("");
-  // const [yourSatisfaction, setYourSatisfaction] = useState("dissatisfied");
+  const [billValue, setBillValue] = useState<string | number>("");
   const [yourSatisfaction, setYourSatisfaction] = useState(0);
-  // const [friendSatisfaction, setFriendSatisfaction] = useState("dissatisfied");
   const [friendSatisfaction, setFriendSatisfaction] = useState(0);
 
   // NOTE: every time when we set a new value in the input fields, this value will be set in the state variables and therefore, the new values will be calculated! In my calculations, i used the name of every selection like "It was good" and not its value => 10%, that's why i had to use switch-case and get the corresponding value for every selection. But now, we use the corresponding value for every selection directly using state variable!
@@ -52,8 +50,8 @@ const BillInput = ({
   billValue,
   onSetBillValue,
 }: {
-  billValue: any;
-  onSetBillValue: any;
+  billValue: string | number;
+  onSetBillValue: (id: number | string) => void;
 }) => {
   return (
     <>
@@ -75,9 +73,9 @@ const SelectPercentage = ({
   satisfactionPercentage,
   onSatisfactionPercentage,
 }: {
-  children: any;
-  satisfactionPercentage: any;
-  onSatisfactionPercentage: any;
+  children: React.ReactNode;
+  satisfactionPercentage: number;
+  onSatisfactionPercentage: (id: number) => void;
 }) => {
   return (
     <div className="you">
@@ -86,24 +84,26 @@ const SelectPercentage = ({
         value={satisfactionPercentage}
         onChange={(e) => onSatisfactionPercentage(Number(e.target.value))}
       >
-        {/* <option value="dissatisfied">Dissatisfied(0%)</option> */}
         <option value="0">Dissatisfied(0%)</option>
-        {/* <option value="okay">It was okay(5%)</option> */}
         <option value="5">It was okay(5%)</option>
-        {/* <option value="good">It was good(10%)</option> */}
         <option value="10">It was good(10%)</option>
-        {/* <option value="amazing">Absolutely amazing!(20%)</option> */}
         <option value="20">Absolutely amazing!(20%)</option>
       </select>
     </div>
   );
 };
 
-const Output = ({ billValue, tip }: { billValue: any; tip: any }) => {
+const Output = ({
+  billValue,
+  tip,
+}: {
+  billValue: number | string;
+  tip: number;
+}) => {
   return (
     billValue && (
       <h3>
-        You pay ${billValue + tip} (${billValue} + ${tip} tip)
+        You pay ${Number(billValue) + tip} (${billValue} + ${tip} tip)
       </h3>
     )
   );
@@ -115,10 +115,10 @@ const Reset = ({
   setYourSatisfaction,
   setFriendSatisfaction,
 }: {
-  billValue: any;
-  setBillValue: any;
-  setYourSatisfaction: any;
-  setFriendSatisfaction: any;
+  billValue: string | number;
+  setBillValue: (id: string) => void;
+  setYourSatisfaction: (id: number) => void;
+  setFriendSatisfaction: (id: number) => void;
 }) => {
   // Reset the values
   const handleReset = () => {
